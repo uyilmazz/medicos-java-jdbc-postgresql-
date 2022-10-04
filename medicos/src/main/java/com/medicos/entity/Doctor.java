@@ -5,21 +5,21 @@ public class Doctor {
 	private String name;
 	private String about;
 	private String imageUrl;
-	private double experience;
-	private int patience;
+	private int experienceMonth;
+	private int patienceCount;
 	private Department department;
 	
 	public Doctor() {
 		
 	}
 
-	public Doctor(long id, String name, String about, String imageUrl, double experience, int patience) {
+	public Doctor(long id, String name, String about, String imageUrl, int experienceMonth, int patienceCount) {
 		this.id = id;
 		this.name = name;
 		this.about = about;
 		this.imageUrl = imageUrl;
-		this.experience = experience;
-		this.patience = patience;
+		this.experienceMonth = experienceMonth;
+		this.patienceCount = patienceCount;
 	}
 
 	public long getId() {
@@ -54,20 +54,20 @@ public class Doctor {
 		this.imageUrl = imageUrl;
 	}
 
-	public double getExperience() {
-		return experience;
+	public int getExperienceMonth() {
+		return experienceMonth;
 	}
 
-	public void setExperience(double experience) {
-		this.experience = experience;
+	public void setExperienceMonth(int experienceMonth) {
+		this.experienceMonth = experienceMonth;
 	}
 
-	public int getPatience() {
-		return patience;
+	public int getPatienceCount() {
+		return patienceCount;
 	}
 
-	public void setPatience(int patience) {
-		this.patience = patience;
+	public void setPatienceCount(int patienceCount) {
+		this.patienceCount = patienceCount;
 	}
 
 	public Department getDepartment() {

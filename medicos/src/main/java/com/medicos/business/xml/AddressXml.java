@@ -57,8 +57,8 @@ public class AddressXml {
 		long addressId = addressElement.getAttribute("id") != "" ? Long.parseLong(addressElement.getAttribute("id")) : 0;
 		String addressLine1 = XmlHelper.getSingleElementText(addressElement, "addressLine1", "");
 		String addressLine2 = XmlHelper.getSingleElementText(addressElement, "addressLine2", "");
-		long userId = (long) XmlHelper.getSingleElementText(addressElement, "userId", 0);
-		Address address = new Address(addressId,addressLine1,addressLine2,userId);
+		long customerId = (long) XmlHelper.getSingleElementText(addressElement, "customerId", 0);
+		Address address = new Address(addressId,addressLine1,addressLine2,customerId);
 		
 		Element provinceElement = (Element) addressElement.getElementsByTagName("province").item(0);
 		Province province = ProvinceXml.parseHelper(provinceElement);
@@ -69,7 +69,7 @@ public class AddressXml {
 	public static void formatHelper(Document document,Element addressElement,Address address) {
 		XmlHelper.addSingleElement(document, addressElement, "addressLine1", address.getAddressLine1(), null, null);
 		XmlHelper.addSingleElement(document, addressElement, "addressLine2", address.getAddressLine2(), null, null);
-		XmlHelper.addSingleElement(document, addressElement, "userId", address.getUserId(), null, null);
+		XmlHelper.addSingleElement(document, addressElement, "customerId", address.getCustomerId(), null, null);
 		XmlHelper.addSingleElement(document, addressElement, "province", null, "id", Integer.toString(address.getProvince().getId()));
 		
 		Element provinceElement = (Element) addressElement.getElementsByTagName("province").item(0);

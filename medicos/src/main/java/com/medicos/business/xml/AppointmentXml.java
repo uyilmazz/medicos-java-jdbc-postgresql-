@@ -53,7 +53,7 @@ public class AppointmentXml {
 		long appointmentId = appointmentElement.getAttribute("id") != "" ? Long.parseLong(appointmentElement.getAttribute("id")) : 0;
 		Timestamp appointmenDate = XmlHelper.getSingleElementText(appointmentElement, "appointmenDate", new Timestamp(0));
 		boolean isSelected = XmlHelper.getSingleElementText(appointmentElement, "isSelected", false);
-		long userId = (long) XmlHelper.getSingleElementText(appointmentElement, "userId", 0);
+		long userId = (long) XmlHelper.getSingleElementText(appointmentElement, "customerId", 0);
 		long doctorId = (long) XmlHelper.getSingleElementText(appointmentElement, "doctorId", 0);
 		Appointment appointment = new Appointment(appointmentId,appointmenDate,isSelected,userId,doctorId);
 		return appointment;
@@ -62,7 +62,7 @@ public class AppointmentXml {
 	public static void formatHelper(Document document,Element appointmentElement,Appointment appointment) {
 		XmlHelper.addSingleElementTimestamp(document, appointmentElement, "appointmenDate", appointment.getAppointmentDate(), null, null);
 		XmlHelper.addSingleElement(document, appointmentElement, "isSelected", appointment.isSelected(), null, null);
-		XmlHelper.addSingleElement(document, appointmentElement, "userId", appointment.getUserId(), null, null);
+		XmlHelper.addSingleElement(document, appointmentElement, "customerId", appointment.getCustomerId(), null, null);
 		XmlHelper.addSingleElement(document, appointmentElement, "doctorId", appointment.getDoctorId(), null, null);
 	}
 }

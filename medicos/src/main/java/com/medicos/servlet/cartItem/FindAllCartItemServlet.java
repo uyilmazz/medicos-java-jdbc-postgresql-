@@ -18,7 +18,7 @@ public class FindAllCartItemServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
-			CartItem cartItem = new CartItem(5, 1200, 2, 2400, 3, 4);
+			CartItem cartItem = new CartItem(5, 1200, 2, 2400,4,2);
 			Document document = CartItemXml.format(cartItem);
 			
 			response.setContentType("application/xml;charset=UTF-8");

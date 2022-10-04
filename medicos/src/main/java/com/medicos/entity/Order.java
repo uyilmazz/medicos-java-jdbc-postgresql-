@@ -8,20 +8,20 @@ public class Order {
 	private String addressLine2;
 	private double totalAmount;
 	private Timestamp orderDate;
-	private long userId;
+	private long customerId;
 	
 	public Order() {
 		
 	}
 
 	public Order(long id, String addressLine1, String addressLine2, double totalAmount, Timestamp orderDate,
-			long userId) {
+			long customerId) {
 		this.id = id;
 		this.addressLine1 = addressLine1;
 		this.addressLine2 = addressLine2;
 		this.totalAmount = totalAmount;
 		this.orderDate = orderDate;
-		this.userId = userId;
+		this.customerId = customerId;
 	}
 
 	public long getId() {
@@ -64,11 +64,11 @@ public class Order {
 		this.orderDate = orderDate;
 	}
 
-	public long getUserId() {
-		return userId;
+	public long getCustomerId() {
+		return customerId;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
 	}
 }

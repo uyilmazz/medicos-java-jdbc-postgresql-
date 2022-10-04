@@ -5,19 +5,19 @@ public class CartItem {
 	private double salesPrice;
 	private int quantity;
 	private double lineAmount;
-	private long userId;
+	private long productId;
 	private long cartId;
 	
 	public CartItem() {
-		
 	}
 
-	public CartItem(long id, double salesPrice, int quantity, double lineAmount, long userId, long cartId) {
+	public CartItem(long id, double salesPrice, int quantity, double lineAmount, long productId, long cartId) {
+		super();
 		this.id = id;
 		this.salesPrice = salesPrice;
 		this.quantity = quantity;
 		this.lineAmount = lineAmount;
-		this.userId = userId;
+		this.productId = productId;
 		this.cartId = cartId;
 	}
 
@@ -53,12 +53,12 @@ public class CartItem {
 		this.lineAmount = lineAmount;
 	}
 
-	public long getUserId() {
-		return userId;
+	public long getProductId() {
+		return productId;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setProductId(long productId) {
+		this.productId = productId;
 	}
 
 	public long getCartId() {

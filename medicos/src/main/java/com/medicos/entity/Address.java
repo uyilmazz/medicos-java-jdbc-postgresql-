@@ -4,18 +4,18 @@ public class Address {
 	private long id;
 	private String addressLine1;
 	private String addressLine2;
-	private long userId;
+	private long customerId;
 	private Province province;
 	
 	public Address() {
 		
 	}
 
-	public Address(long id, String addressLine1, String addressLine2, long userId) {
+	public Address(long id, String addressLine1, String addressLine2, long customerId) {
 		this.id = id;
 		this.addressLine1 = addressLine1;
 		this.addressLine2 = addressLine2;
-		this.userId = userId;
+		this.customerId = customerId;
 	}
 
 	public long getId() {
@@ -42,12 +42,12 @@ public class Address {
 		this.addressLine2 = addressLine2;
 	}
 
-	public long getUserId() {
-		return userId;
+	public long getCustomerId() {
+		return customerId;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
 	}
 
 	public Province getProvince() {

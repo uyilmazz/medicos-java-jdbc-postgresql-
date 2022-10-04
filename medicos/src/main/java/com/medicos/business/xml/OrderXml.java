@@ -54,7 +54,7 @@ public class OrderXml {
 		double totalAmount = XmlHelper.getSingleElementText(orderElement, "totalAmount", 0);
 		String addressLine1 = XmlHelper.getSingleElementText(orderElement, "addressLine1", "");
 		String addressLine2 = XmlHelper.getSingleElementText(orderElement, "addressLine2", "");
-		long userId = (long) XmlHelper.getSingleElementText(orderElement, "userId", 0);
+		long userId = (long) XmlHelper.getSingleElementText(orderElement, "customerId", 0);
 		Timestamp orderdate = XmlHelper.getSingleElementText(orderElement, "orderDate", new Timestamp(0));
 		Order order = new Order(orderId,addressLine1,addressLine2,totalAmount,orderdate,userId);
 		return order;
@@ -65,7 +65,7 @@ public class OrderXml {
 		XmlHelper.addSingleElement(document, orderElement, "totalAmount", order.getTotalAmount(), null, null);
 		XmlHelper.addSingleElement(document, orderElement, "addressLine1", order.getAddressLine1(), null, null);
 		XmlHelper.addSingleElement(document, orderElement, "addressLine2", order.getAddressLine2(), null, null);
-		XmlHelper.addSingleElement(document, orderElement, "userId", order.getUserId(), null, null);
+		XmlHelper.addSingleElement(document, orderElement, "customerId", order.getCustomerId(), null, null);
 		XmlHelper.addSingleElementTimestamp(document, orderElement, "orderDate", order.getOrderDate(), null, null);
 	}
 }

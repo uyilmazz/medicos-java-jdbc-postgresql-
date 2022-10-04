@@ -55,8 +55,8 @@ public class CartXml {
 	private static Cart parseHelper(Element cartElement) {
 		long cartId = cartElement.getAttribute("id") != "" ? Long.parseLong(cartElement.getAttribute("id")) : 0 ;
 		double totalAmount = XmlHelper.getSingleElementText(cartElement, "totalAmount", 0);
-		long userId = (long) XmlHelper.getSingleElementText(cartElement, "userId", 0);
-		Cart cart = new Cart(cartId,totalAmount,userId);
+		long customerId = (long) XmlHelper.getSingleElementText(cartElement, "customerId", 0);
+		Cart cart = new Cart(cartId,totalAmount,customerId);
 		
 		List<CartItem> cartItemList = new ArrayList<>();
 		Element cartItemsElement = (Element) cartElement.getElementsByTagName("cartItems").item(0);
@@ -72,7 +72,7 @@ public class CartXml {
 	
 	private static void formatHelper(Document document,Element cartElement,Cart cart) {
 		XmlHelper.addSingleElement(document, cartElement, "totalAmount", cart.getTotalAmount(), null, null);
-		XmlHelper.addSingleElement(document, cartElement, "userId", cart.getUserId(), null, null);
+		XmlHelper.addSingleElement(document, cartElement, "customerId", cart.getCustomerId(), null, null);
 		XmlHelper.addSingleElement(document, cartElement, "cartItems", null, null, null);
 		Element cartItemsElement = (Element) cartElement.getElementsByTagName("cartItems").item(0);
 		for (int i = 0; i < cart.getCartItems().size(); i++) {

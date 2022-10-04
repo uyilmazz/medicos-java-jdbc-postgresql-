@@ -1,17 +1,17 @@
 package com.medicos.entity;
 
-public class User {
+public class Customer {
 	private long id;
 	private String name;
 	private String email;
 	private String password;
 	private String imageUrl;
 	
-	public User() {
+	public Customer() {
 		
 	}
 
-	public User(long id, String name, String email,String password, String imageUrl) {
+	public Customer(long id, String name, String email,String password, String imageUrl) {
 		super();
 		this.id = id;
 		this.name = name;

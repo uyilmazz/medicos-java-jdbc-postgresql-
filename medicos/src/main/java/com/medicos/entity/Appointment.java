@@ -6,18 +6,18 @@ public class Appointment {
 	private long id;
 	private Timestamp appointmentDate;
 	private boolean isSelected;
-	private long userId;
+	private long customerId;
 	private long doctorId;
 	
 	public Appointment() {
 		
 	}
 
-	public Appointment(long id, Timestamp appointmentDate, boolean isSelected, long userId, long doctorId) {
+	public Appointment(long id, Timestamp appointmentDate, boolean isSelected, long customerId, long doctorId) {
 		this.id = id;
 		this.appointmentDate = appointmentDate;
 		this.isSelected = isSelected;
-		this.userId = userId;
+		this.customerId = customerId;
 		this.doctorId = doctorId;
 	}
 
@@ -45,12 +45,12 @@ public class Appointment {
 		this.isSelected = isSelected;
 	}
 
-	public long getUserId() {
-		return userId;
+	public long getCustomerId() {
+		return customerId;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
 	}
 
 	public long getDoctorId() {

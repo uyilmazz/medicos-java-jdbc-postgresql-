@@ -57,9 +57,9 @@ public class DoctorXml {
 		String doctorName = XmlHelper.getSingleElementText(doctorElement, "name", "");
 		String doctorAbout = XmlHelper.getSingleElementText(doctorElement, "about", "");
 		String doctorImageUrl = XmlHelper.getSingleElementText(doctorElement, "imageUrl", "");
-		double doctorExperience = XmlHelper.getSingleElementText(doctorElement, "experience", 0);
-		int doctorPatience = (int) XmlHelper.getSingleElementText(doctorElement, "patience", 0);
-		Doctor doctor = new Doctor(doctorId,doctorName,doctorAbout,doctorImageUrl,doctorExperience,doctorPatience);
+		int doctorExperienceMonth = (int) XmlHelper.getSingleElementText(doctorElement, "experienceMonth", 0);
+		int doctorPatienceCount = (int) XmlHelper.getSingleElementText(doctorElement, "patienceCount", 0);
+		Doctor doctor = new Doctor(doctorId,doctorName,doctorAbout,doctorImageUrl,doctorExperienceMonth,doctorPatienceCount);
 		
 		Element departmentElement = (Element) doctorElement.getElementsByTagName("department").item(0);
 		Department department = DepartmentXml.parseHelper(departmentElement);
@@ -71,8 +71,8 @@ public class DoctorXml {
 		XmlHelper.addSingleElement(document, doctorElement, "name", doctor.getName(), null, null);
 		XmlHelper.addSingleElement(document, doctorElement, "about", doctor.getAbout(), null, null);
 		XmlHelper.addSingleElement(document, doctorElement, "imageUrl", doctor.getImageUrl(), null, null);
-		XmlHelper.addSingleElement(document, doctorElement, "experience", doctor.getExperience(), null, null);
-		XmlHelper.addSingleElement(document, doctorElement, "patience", doctor.getPatience(), null, null);
+		XmlHelper.addSingleElement(document, doctorElement, "experienceMonth", doctor.getExperienceMonth(), null, null);
+		XmlHelper.addSingleElement(document, doctorElement, "patienceCount", doctor.getPatienceCount(), null, null);
 		XmlHelper.addSingleElement(document, doctorElement, "department",null, "id", Integer.toString(doctor.getDepartment().getId()));
 		
 		Element departmentElement = (Element) doctorElement.getElementsByTagName("department").item(0);

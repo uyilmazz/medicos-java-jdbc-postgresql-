@@ -24,8 +24,8 @@ public class FindAllCartServlet extends HttpServlet{
 		
 		try {
 			Cart cart = new Cart(3,2350,2);		
-			CartItem cartItem = new CartItem(5, 1200, 2, 2400, 3, 4);
-			CartItem cartItem2 = new CartItem(8, 200, 3, 600, 7, 15);
+			CartItem cartItem = new CartItem(5, 1200, 2, 2400, 4,5);
+			CartItem cartItem2 = new CartItem(8, 200, 3, 600, 15,7);
 			List<CartItem> cartItemList = new ArrayList<>();
 			cartItemList.add(cartItem);
 			cartItemList.add(cartItem2);
