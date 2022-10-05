@@ -18,6 +18,18 @@ public class DepartmentRepository extends BaseRepository<Department>{
 		return super.findById(sql, id);
 	}
 	
+	public Department findByName(String departmentName) throws SQLException {
+		Department department = null;
+		String sql = "Select * from departments where name = ?";
+		connect();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, departmentName);
+		ResultSet resultSet = statement.executeQuery();
+		department = parse(resultSet);
+		disconnect();
+		return department;
+	}
+	
 	public boolean add(Department department) throws SQLException {
 		connect();
 		String sql = "Insert into departments(name,image_url) values(?,?)";
@@ -57,5 +69,4 @@ public class DepartmentRepository extends BaseRepository<Department>{
 		}
 		return department;
 	}
-	
 }

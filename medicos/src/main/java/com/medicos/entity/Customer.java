@@ -2,7 +2,8 @@ package com.medicos.entity;
 
 public class Customer {
 	private long id;
-	private String name;
+	private String firstName;
+	private String lastName;
 	private String email;
 	private String password;
 	private String imageUrl;
@@ -11,10 +12,11 @@ public class Customer {
 		
 	}
 
-	public Customer(long id, String name, String email,String password, String imageUrl) {
+	public Customer(long id, String firstName, String lastName, String email, String password, String imageUrl) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 		this.imageUrl = imageUrl;
@@ -28,12 +30,20 @@ public class Customer {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getEmail() {
@@ -44,19 +54,19 @@ public class Customer {
 		this.email = email;
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 }

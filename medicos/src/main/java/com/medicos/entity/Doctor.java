@@ -2,7 +2,10 @@ package com.medicos.entity;
 
 public class Doctor {
 	private long id;
-	private String name;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String password;
 	private String about;
 	private String imageUrl;
 	private int experienceMonth;
@@ -13,9 +16,13 @@ public class Doctor {
 		
 	}
 
-	public Doctor(long id, String name, String about, String imageUrl, int experienceMonth, int patienceCount) {
+	public Doctor(long id, String firstName, String lastName, String email,String password,String about, String imageUrl, int experienceMonth,
+			int patienceCount) {
 		this.id = id;
-		this.name = name;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
 		this.about = about;
 		this.imageUrl = imageUrl;
 		this.experienceMonth = experienceMonth;
@@ -30,12 +37,20 @@ public class Doctor {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getAbout() {
@@ -76,5 +91,21 @@ public class Doctor {
 
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

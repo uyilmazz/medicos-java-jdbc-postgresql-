@@ -54,12 +54,15 @@ public class DoctorXml {
 	
 	public static Doctor parseHelper(Element doctorElement) {
 		long doctorId = doctorElement.getAttribute("id") != "" ? Long.parseLong(doctorElement.getAttribute("id")) : 0 ;
-		String doctorName = XmlHelper.getSingleElementText(doctorElement, "name", "");
+		String doctorFirstName = XmlHelper.getSingleElementText(doctorElement, "firstName", "");
+		String doctorLastName = XmlHelper.getSingleElementText(doctorElement, "lastName", "");
+		String doctorEmail = XmlHelper.getSingleElementText(doctorElement, "email", "");
+		String doctorPassword = XmlHelper.getSingleElementText(doctorElement, "password", "");
 		String doctorAbout = XmlHelper.getSingleElementText(doctorElement, "about", "");
 		String doctorImageUrl = XmlHelper.getSingleElementText(doctorElement, "imageUrl", "");
 		int doctorExperienceMonth = (int) XmlHelper.getSingleElementText(doctorElement, "experienceMonth", 0);
 		int doctorPatienceCount = (int) XmlHelper.getSingleElementText(doctorElement, "patienceCount", 0);
-		Doctor doctor = new Doctor(doctorId,doctorName,doctorAbout,doctorImageUrl,doctorExperienceMonth,doctorPatienceCount);
+		Doctor doctor = new Doctor(doctorId,doctorFirstName,doctorLastName,doctorEmail,doctorPassword,doctorAbout,doctorImageUrl,doctorExperienceMonth,doctorPatienceCount);
 		
 		Element departmentElement = (Element) doctorElement.getElementsByTagName("department").item(0);
 		Department department = DepartmentXml.parseHelper(departmentElement);
@@ -68,7 +71,10 @@ public class DoctorXml {
 	}
 
 	public static void formatHelper(Document document,Element doctorElement,Doctor doctor) {
-		XmlHelper.addSingleElement(document, doctorElement, "name", doctor.getName(), null, null);
+		XmlHelper.addSingleElement(document, doctorElement, "firstName", doctor.getFirstName(), null, null);
+		XmlHelper.addSingleElement(document, doctorElement, "lastName", doctor.getLastName(), null, null);
+		XmlHelper.addSingleElement(document, doctorElement, "email", doctor.getEmail(), null, null);
+		XmlHelper.addSingleElement(document, doctorElement, "password", doctor.getPassword(), null, null);
 		XmlHelper.addSingleElement(document, doctorElement, "about", doctor.getAbout(), null, null);
 		XmlHelper.addSingleElement(document, doctorElement, "imageUrl", doctor.getImageUrl(), null, null);
 		XmlHelper.addSingleElement(document, doctorElement, "experienceMonth", doctor.getExperienceMonth(), null, null);

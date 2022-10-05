@@ -21,7 +21,7 @@ public class FindAllDoctorServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
-			Doctor doctor = new Doctor(5, "Doctor 1 name","Doctor 1 about","doctor 1 imageUrl",18,500);
+			Doctor doctor = new Doctor(5, "Doctor 1 first name","doctor 1 last name","Doctor 1 email","Doctor 1 password","Doctor 1 about","doctor 1 imageUrl",18,500);
 			Department department = new Department(2,"Department 1","Department 1 imageUrl");
 			doctor.setDepartment(department);
 			Document document = DoctorXml.format(doctor);
