@@ -1,4 +1,4 @@
-package com.medicos.servlet.user;
+package com.medicos.servlet.customer;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -17,7 +17,7 @@ public class FindAllUserServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
-			Customer user = new Customer(5,"user 1 name","user 1 email","user 1 password","user 1 imageURl");
+			Customer user = new Customer(5,"user 1 first name","user 1 last name","user 1 email","user 1 password","user 1 imageURl");
 			Document document = CustomerXml.format(user);
 			
 			response.setContentType("application/xml;charset=UTF-8");

@@ -26,6 +26,17 @@ public class ProductRepository extends BaseRepository<Product>{
 		return super.findById(sql, id);
 	}
 	
+	public Product findByName(String name) throws SQLException {
+		String sql = String.format("%s %s", SELECT_STRING,"where name = ?");
+		connect();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, name);
+		ResultSet resultSet = statement.executeQuery();
+		Product product = parse(resultSet); 
+		disconnect();
+		return product;
+	}
+	
 	public boolean add(Product product) throws SQLException {
 		connect();
 		String sql = "Insert into products(name,description,how_to_use,sales_price,image_url,category_id) values(?,?,?,?,?,?)";

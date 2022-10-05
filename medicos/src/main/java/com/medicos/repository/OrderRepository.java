@@ -19,6 +19,11 @@ public class OrderRepository extends BaseRepository<Order>{
 		return super.findById(sql, id);
 	}
 	
+	public Order findByCustomerId(long customerId) throws SQLException {
+		String sql = "Select * from orders where customer_id = ?";
+		return super.findById(sql, customerId);
+	}
+	
 	public boolean add(Order order) throws SQLException {
 		connect();
 		String sql = "Insert into orders(address_line_1,address_line_2,total_amount,order_date,customer_id) values(?,?,?,?,?)";
@@ -48,7 +53,7 @@ public class OrderRepository extends BaseRepository<Order>{
 		return affected > 0 ? true : false;
 	}
 	
-	public boolean remove(int id) throws SQLException {
+	public boolean remove(long id) throws SQLException {
 		String sql = "Delete from order_items where id = ?";
 		return super.remove(sql, id);
 	}

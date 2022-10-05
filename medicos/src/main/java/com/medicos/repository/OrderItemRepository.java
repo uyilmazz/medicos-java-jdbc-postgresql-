@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
 import com.medicos.entity.OrderItem;
 
 public class OrderItemRepository extends BaseRepository<OrderItem>{
@@ -12,6 +11,17 @@ public class OrderItemRepository extends BaseRepository<OrderItem>{
 	public List<OrderItem> findAll() throws SQLException{
 		String sql = "Select * from order_items";
 		return super.findAll(sql);
+	}
+	
+	public List<OrderItem> findByOrderId(long orderId) throws SQLException{
+		connect();
+		String sql = "Select * from order_items where order_id = ?";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setLong(1, orderId);
+		ResultSet resultSet = statement.executeQuery();
+		List<OrderItem> orderItemList = parseList(resultSet);
+		disconnect();
+		return orderItemList;
 	}
 	
 	public OrderItem findById(long id) throws SQLException {
@@ -50,7 +60,7 @@ public class OrderItemRepository extends BaseRepository<OrderItem>{
 		return affected > 0 ? true : false;
 	}
 	
-	public boolean remove(int id) throws SQLException {
+	public boolean remove(long id) throws SQLException {
 		String sql = "Delete from order_items where id = ?";
 		return super.remove(sql, id);
 	}

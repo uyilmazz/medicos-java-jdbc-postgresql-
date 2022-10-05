@@ -18,6 +18,18 @@ public class CategoryRepository extends BaseRepository<Category>{
 		return super.findById(sql, id);
 	}
 	
+	public Category findByName(String categoryName) throws SQLException {
+		Category category = null;
+		String sql = "Select * from categories where name = ?";
+		connect();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, categoryName);
+		ResultSet resultSet = statement.executeQuery();
+		category = parse(resultSet);
+		disconnect();
+		return category;
+	}
+	
 	public boolean add(Category category) throws SQLException {
 		connect();
 		String sql = "Insert into categories(name,image_url) values(?,?)";

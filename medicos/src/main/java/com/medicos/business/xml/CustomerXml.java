@@ -53,16 +53,18 @@ public class CustomerXml {
 	
 	public static Customer parseHelper(Element customerElement) {
 		long customerId = Long.parseLong(customerElement.getAttribute("id"));
-		String customerName = XmlHelper.getSingleElementText(customerElement, "name", "");
+		String customerFirstName = XmlHelper.getSingleElementText(customerElement, "firstName", "");
+		String customerLastName = XmlHelper.getSingleElementText(customerElement, "lastName", "");
 		String customerEmail = XmlHelper.getSingleElementText(customerElement, "email", "");
 		String customerPassword = XmlHelper.getSingleElementText(customerElement, "password", "");
 		String customerImageUrl = XmlHelper.getSingleElementText(customerElement, "imageUrl", "");
-		Customer customer = new Customer(customerId,customerName,customerEmail,customerPassword,customerImageUrl);
+		Customer customer = new Customer(customerId,customerFirstName,customerLastName,customerEmail,customerPassword,customerImageUrl);
 		return customer;
 	}
 	
 	public static void formatHelper(Document document,Element customerElement,Customer customer) {
-		XmlHelper.addSingleElement(document, customerElement, "name", customer.getName(), null, null);
+		XmlHelper.addSingleElement(document, customerElement, "firstName", customer.getFirstName(), null, null);
+		XmlHelper.addSingleElement(document, customerElement, "lastName", customer.getLastName(), null, null);
 		XmlHelper.addSingleElement(document, customerElement, "email", customer.getEmail(), null, null);
 		XmlHelper.addSingleElement(document, customerElement, "password", customer.getPassword(), null, null);
 		XmlHelper.addSingleElement(document, customerElement, "imageUrl", customer.getImageUrl(), null, null);

@@ -18,14 +18,26 @@ public class CustomerRepository extends BaseRepository<Customer>{
 		return super.findById(sql, id);
 	}
 	
+	public Customer findByEmail(String email) throws SQLException {
+		String sql = "Select * from customers where email = ?";
+		connect();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, email);
+		ResultSet resultSet = statement.executeQuery();
+		Customer customer = parse(resultSet);
+		disconnect();
+		return customer;
+	}
+	
 	public boolean add(Customer customer) throws SQLException {
 		connect();
-		String sql = "Insert into customers(name,email,password,image_url) values(?,?,?,?)";
+		String sql = "Insert into customers(first_name,last_name,email,password,image_url) values(?,?,?,?,?)";
 		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.setString(1, customer.getName());
-		statement.setString(2, customer.getEmail());
-		statement.setString(3, customer.getPassword());
-		statement.setString(4, customer.getImageUrl());
+		statement.setString(1, customer.getFirstName());
+		statement.setString(2, customer.getLastName());
+		statement.setString(3, customer.getEmail());
+		statement.setString(4, customer.getPassword());
+		statement.setString(5, customer.getImageUrl());
 		int affected = statement.executeUpdate();
 		disconnect();
 		return affected > 0 ? true : false;
@@ -33,13 +45,14 @@ public class CustomerRepository extends BaseRepository<Customer>{
 	
 	public boolean update(Customer customer) throws SQLException {
 		connect();
-		String sql = "Update customers set name = ?, email = ?, password = ?, image_url = ? where id = ?";
+		String sql = "Update customers set first_name = ?,last_name, email = ?, password = ?, image_url = ? where id = ?";
 		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.setString(1, customer.getName());
-		statement.setString(2, customer.getEmail());
-		statement.setString(3, customer.getPassword());
-		statement.setString(4, customer.getImageUrl());
-		statement.setLong(5, customer.getId());
+		statement.setString(1, customer.getFirstName());
+		statement.setString(2, customer.getLastName());
+		statement.setString(3, customer.getEmail());
+		statement.setString(4, customer.getPassword());
+		statement.setString(5, customer.getImageUrl());
+		statement.setLong(6, customer.getId());
 		int affected = statement.executeUpdate();
 		disconnect();
 		return affected > 0 ? true : false;
@@ -55,11 +68,12 @@ public class CustomerRepository extends BaseRepository<Customer>{
 		Customer customer = null;
 		if(resultSet.next()) {
 			long id = resultSet.getLong("id");
-			String name = resultSet.getString("name");
+			String firstName = resultSet.getString("first_name");
+			String lastName = resultSet.getString("last_name");
 			String email = resultSet.getString("email");
 			String password = resultSet.getString("password");
 			String imageUrl = resultSet.getString("image_url");
-			customer = new Customer(id,name,email,password,imageUrl);
+			customer = new Customer(id,firstName,lastName,email,password,imageUrl);
 		}
 		return customer;
 	}

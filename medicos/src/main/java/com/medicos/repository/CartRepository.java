@@ -20,6 +20,11 @@ public class CartRepository extends BaseRepository<Cart>{
 		return super.findById(sql, id);
 	}
 	
+	public Cart findByCustomerId(long customerId) throws SQLException {
+		String sql = "Select * from carts where customer_id = ?";
+		return super.findById(sql, customerId);
+	}
+	
 	public boolean add(Cart cart) throws SQLException {
 		connect();
 		String sql = "Insert into carts(total_amount,customer_id) values(?,?)";

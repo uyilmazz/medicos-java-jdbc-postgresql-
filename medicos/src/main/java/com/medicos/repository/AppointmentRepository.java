@@ -19,6 +19,19 @@ public class AppointmentRepository extends BaseRepository<Appointment>{
 		return super.findById(sql, id);
 	}
 	
+	public Appointment findByDateAndDoctorId(Timestamp date,long doctorId) throws SQLException {
+		Appointment appointment = null;
+		String sql = "Select * from appointments where doctor_id = ? and date = ?";
+		connect();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setLong(1, doctorId);
+		statement.setTimestamp(2, date);
+		ResultSet resultSet = statement.executeQuery();
+		appointment = parse(resultSet); 
+		disconnect();
+		return appointment;
+	}
+	
 	public boolean add(Appointment appointmen) throws SQLException {
 		connect();
 		String sql = "Insert into appointments(date,is_selected,customer_id,doctor_id) values(?,?,?,?)";
@@ -54,13 +67,15 @@ public class AppointmentRepository extends BaseRepository<Appointment>{
 	
 	@Override
 	protected Appointment parse(ResultSet resultSet) throws SQLException {
-		long appointmentId = resultSet.getLong("id");
-		boolean isSelected = resultSet.getBoolean("is_selected");
-		long doctorId = resultSet.getLong("doctor_id");
-		long customerId = resultSet.getLong("customer_id");
-		Timestamp appointmentDate = resultSet.getTimestamp("date");
-		Appointment appointment = new Appointment(appointmentId,appointmentDate,isSelected,customerId,doctorId);
+		Appointment appointment = null;
+		if(resultSet.next()) {
+			long appointmentId = resultSet.getLong("id");
+			boolean isSelected = resultSet.getBoolean("is_selected");
+			long doctorId = resultSet.getLong("doctor_id");
+			long customerId = resultSet.getLong("customer_id");
+			Timestamp appointmentDate = resultSet.getTimestamp("date");
+			appointment = new Appointment(appointmentId,appointmentDate,isSelected,customerId,doctorId);
+		}
 		return appointment;
 	}
-
 }
