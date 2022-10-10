@@ -1,6 +1,7 @@
-package com.medicos.servlet.doctor;
+package com.medicos.servlet.department;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,26 +11,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.w3c.dom.Document;
 
-import com.medicos.business.xml.DoctorXml;
+import com.medicos.business.abstracts.DepartmentService;
+import com.medicos.business.concretes.DepartmentManager;
+import com.medicos.business.xml.DepartmentXml;
 import com.medicos.core.helper.XmlHelper;
+import com.medicos.core.result.DataResult;
 import com.medicos.entity.Department;
-import com.medicos.entity.Doctor;
+import com.medicos.repository.DepartmentRepository;
 
-@WebServlet("/api/doctors")
-public class FindAllDoctorServlet extends HttpServlet{
+@WebServlet("/api/departments")
+public class DepartmentFindAllServlet extends HttpServlet{
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		try {
-			Doctor doctor = new Doctor(5, "Doctor 1 first name","doctor 1 last name","Doctor 1 email","Doctor 1 password","Doctor 1 about","doctor 1 imageUrl",18,500);
-			Department department = new Department(2,"Department 1","Department 1 imageUrl");
-			doctor.setDepartment(department);
-			Document document = DoctorXml.format(doctor);
-			
+			DepartmentService departmentService = new DepartmentManager(new DepartmentRepository());
+			DataResult<List<Department>> result = departmentService.getAll();
+			Document document = DepartmentXml.formatAll(result.getData());
 			response.setContentType("application/xml;charset=UTF-8");
 			XmlHelper.dump(document, response.getOutputStream());
 		}catch(Exception e) {
 			e.printStackTrace();
+			response.sendError(500);
 		}
 	}
 }

@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -21,6 +22,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import com.medicos.business.xml.ResultXml;
+import com.medicos.core.result.Result;
 
 public class XmlHelper {
 	
@@ -117,5 +121,12 @@ public class XmlHelper {
 	
 	public static void addSingleElementTimestamp(Document document,Element parent,String tag,Timestamp content,String attribute,String attributeValue) {
 		addSingleElement(document, parent, tag, content != null ? content.toString() : null, attribute, attributeValue);
+	}
+	
+	public static Document resultDocument(HttpServletResponse response, Result result, int statusCode)
+			throws Exception {
+		Document responseDocument = ResultXml.format(result);
+		response.setStatus(statusCode);
+		return responseDocument;
 	}
 }

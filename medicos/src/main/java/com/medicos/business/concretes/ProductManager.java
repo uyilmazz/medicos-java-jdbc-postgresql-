@@ -22,6 +22,11 @@ public class ProductManager implements ProductService{
 	public DataResult<List<Product>> getAll() throws SQLException {
 		return new SuccessDataResult<List<Product>>(productRepository.findAll());
 	}
+	
+	@Override
+	public DataResult<List<Product>> getByCategoryId(long categoryId) throws SQLException {
+		return new SuccessDataResult<List<Product>>(productRepository.findAllByCategoryId((int) categoryId));
+	}
 
 	@Override
 	public DataResult<Product> getById(long id) throws SQLException {
