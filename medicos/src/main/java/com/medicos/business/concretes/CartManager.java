@@ -58,7 +58,7 @@ public class CartManager implements CartService{
 
 	@Override
 	public Result update(Cart entity) throws SQLException {
-		if(!isExistCart(entity.getId())) {
+		if(!isExist(entity.getId())) {
 			return new ErrorResult(ResultMessages.notFoundMessage(entityName));
 		}
 		boolean result = cartRepository.update(entity);
@@ -67,14 +67,14 @@ public class CartManager implements CartService{
 
 	@Override
 	public Result delete(long id) throws SQLException {
-		if(!isExistCart(id)) {
+		if(!isExist(id)) {
 			return new ErrorResult(ResultMessages.notFoundMessage(entityName));
 		}
 		boolean result = cartRepository.remove(id);
 		return result ? new SuccessResult(ResultMessages.deletedMessage(entityName)) : new ErrorResult(ResultMessages.notDeletedMessage(entityName));
 	}
 	
-	private boolean isExistCart(long id) throws SQLException {
+	private boolean isExist(long id) throws SQLException {
 		Cart cart = cartRepository.findById(id);
 		return cart != null ? true : false;
 	}

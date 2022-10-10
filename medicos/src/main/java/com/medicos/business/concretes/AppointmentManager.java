@@ -1,8 +1,6 @@
 package com.medicos.business.concretes;
-
 import java.sql.SQLException;
 import java.util.List;
-
 import com.medicos.business.abstracts.AppointmentService;
 import com.medicos.business.messages.ResultMessages;
 import com.medicos.core.result.DataResult;

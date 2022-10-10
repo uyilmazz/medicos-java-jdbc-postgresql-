@@ -1,7 +1,6 @@
-package com.medicos.servlet.cart;
+package com.medicos.servlet.customer;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,30 +11,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.w3c.dom.Document;
 
-import com.medicos.business.xml.CartXml;
+import com.medicos.business.abstracts.CustomerService;
+import com.medicos.business.concretes.CustomerManager;
+import com.medicos.business.xml.CustomerXml;
 import com.medicos.core.helper.XmlHelper;
-import com.medicos.entity.Cart;
-import com.medicos.entity.CartItem;
+import com.medicos.core.result.DataResult;
+import com.medicos.entity.Customer;
+import com.medicos.repository.CustomerRepository;
 
-@WebServlet("/api/carts")
-public class FindAllCartServlet extends HttpServlet{
+@WebServlet("/api/users")
+public class CustomerFindAllServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		try {
-			Cart cart = new Cart(3,2350,2);		
-			CartItem cartItem = new CartItem(5, 1200, 2, 2400, 4,5);
-			CartItem cartItem2 = new CartItem(8, 200, 3, 600, 15,7);
-			List<CartItem> cartItemList = new ArrayList<>();
-			cartItemList.add(cartItem);
-			cartItemList.add(cartItem2);
-			cart.setCartItems(cartItemList);
-			
-			Document document = CartXml.format(cart);
+			CustomerService customerService = new CustomerManager(new CustomerRepository());
+			DataResult<List<Customer>> result = customerService.getAll();
+			Document document = CustomerXml.formatAll(result.getData());
 			response.setContentType("application/xml;charset=UTF-8");
 			XmlHelper.dump(document, response.getOutputStream());
 		}catch(Exception e) {
 			e.printStackTrace();
+			response.sendError(500);
 		}
 	}
 }

@@ -7,25 +7,43 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.w3c.dom.Document;
+
+import com.medicos.business.abstracts.OrderService;
+import com.medicos.business.concretes.OrderManager;
+import com.medicos.business.messages.ResultMessages;
 import com.medicos.business.xml.OrderXml;
 import com.medicos.core.helper.XmlHelper;
+import com.medicos.core.result.Result;
 import com.medicos.entity.Order;
+import com.medicos.repository.OrderRepository;
 
 @WebServlet("/api/orders/create")
-public class CreateOrderServlet extends HttpServlet{
+public class OrderCreateServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			Document document = XmlHelper.parse(request.getInputStream());
 			Document responseDocument;
-			Order order = OrderXml.parse(document);
-			responseDocument = OrderXml.format(order);
-			XmlHelper.dump(responseDocument, response.getOutputStream());
+			if(document != null) {
+				Order order = OrderXml.parse(document);
+				OrderService orderService = new OrderManager(new OrderRepository());
+				Result result = orderService.add(order);
+				if(result.isSuccess()) {
+					responseDocument = XmlHelper.resultDocument(response, result, 200);
+				}else {
+					responseDocument = XmlHelper.resultDocument(response, result, 400);
+				}		
+			}else {
+				Result result = new Result(false,ResultMessages.RequestParameterError);
+				responseDocument = XmlHelper.resultDocument(response, result, 400);
+			}
 			response.setContentType("application/xml;charset=UTF-8");
 			XmlHelper.dump(responseDocument, response.getOutputStream());
 		}catch(Exception e) {
 			e.printStackTrace();
+			response.sendError(500);
 		}
 	}
 }
