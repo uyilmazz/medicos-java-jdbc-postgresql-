@@ -13,7 +13,7 @@ import org.w3c.dom.Document;
 
 import com.medicos.business.abstracts.CategoryService;
 import com.medicos.business.concretes.CategoryManager;
-import com.medicos.business.xml.CategoryXml;
+import com.medicos.business.xml.entity.CategoryXml;
 import com.medicos.core.helper.XmlHelper;
 import com.medicos.core.result.DataResult;
 import com.medicos.entity.Category;

@@ -40,7 +40,7 @@ public class CartItemManager implements CartItemService{
 		CartItem cartItem = cartItemRepository.findById(entity.getId());
 		boolean result = false;
 		if(cartItem == null) {
-			result = cartItemRepository.add(cartItem);
+			result = cartItemRepository.add(entity);
 		}else {
 			int dbQuantity = cartItem.getQuantity();
 			dbQuantity += entity.getQuantity();
@@ -56,7 +56,7 @@ public class CartItemManager implements CartItemService{
 		if(cartItem == null) {
 			return new ErrorResult(ResultMessages.CartItemNotFound);
 		}
-		boolean updatedResult = cartItemRepository.update(cartItem);
+		boolean updatedResult = cartItemRepository.update(entity);
 		return updatedResult ? new SuccessResult(ResultMessages.CartItemUpdated) : new ErrorResult(ResultMessages.CartItemCouldNotUpdated);
 	}
 
@@ -66,7 +66,7 @@ public class CartItemManager implements CartItemService{
 		if(cartItem == null) {
 			return new ErrorResult(ResultMessages.CartItemNotFound);
 		}
-		boolean deletedResult = cartItemRepository.remove(id);
+		boolean deletedResult = cartItemRepository.remove(cartItem);
 		return deletedResult ? new SuccessResult(ResultMessages.CartItemDeleted) : new ErrorResult(ResultMessages.CartItemCouldNotDeleted);
 	}
 }

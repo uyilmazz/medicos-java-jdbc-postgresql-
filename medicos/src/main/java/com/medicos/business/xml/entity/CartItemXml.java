@@ -1,4 +1,4 @@
-package com.medicos.business.xml;
+package com.medicos.business.xml.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,7 @@ import org.w3c.dom.NodeList;
 
 import com.medicos.core.helper.XmlHelper;
 import com.medicos.entity.CartItem;
+import com.medicos.entity.Product;
 
 public class CartItemXml {
 	
@@ -53,20 +54,25 @@ public class CartItemXml {
 	
 	public static CartItem parseHelper(Element cartItemElement) {
 		long id = cartItemElement.getAttribute("id") != "" ? Long.parseLong(cartItemElement.getAttribute("id")) : 0 ;
-		double salesPrice = XmlHelper.getSingleElementText(cartItemElement, "salesPrice", 0);
 		int quantity  = (int) XmlHelper.getSingleElementText(cartItemElement, "quantity", 0);
 		double lineAmount = XmlHelper.getSingleElementText(cartItemElement, "lineAmount", 0);
-		long productId = (long) XmlHelper.getSingleElementText(cartItemElement, "productId", 0);
 		long cartId = (long) XmlHelper.getSingleElementText(cartItemElement, "cartId", 0);
-		CartItem cartItem = new CartItem(id,salesPrice,quantity,lineAmount,productId,cartId);
+		CartItem cartItem = new CartItem(id,quantity,lineAmount,cartId);
+		
+		Element productElement = (Element)cartItemElement.getElementsByTagName("product").item(0);
+		Product product = ProductXml.parseHelper(productElement);
+
+		cartItem.setProduct(product);
 		return cartItem;
 	}
 	
 	public static void formatHelper(Document document, Element cartItemElement,CartItem cartItem) {
-		XmlHelper.addSingleElement(document, cartItemElement, "salesPrice", cartItem.getSalesPrice(), null, null);
 		XmlHelper.addSingleElement(document, cartItemElement, "quantity", cartItem.getQuantity(), null, null);
 		XmlHelper.addSingleElement(document, cartItemElement, "lineAmount", cartItem.getLineAmount(), null, null);
-		XmlHelper.addSingleElement(document, cartItemElement, "productId", cartItem.getProductId(), null, null);
 		XmlHelper.addSingleElement(document, cartItemElement, "cartId", cartItem.getCartId(), null, null);
+		
+		XmlHelper.addSingleElement(document, cartItemElement, "product", null, "id", Long.toString(cartItem.getProduct().getId()));
+		Element productElement = (Element)cartItemElement.getElementsByTagName("product").item(0);
+		ProductXml.formatHelper(document, productElement, cartItem.getProduct());
 	}
 }

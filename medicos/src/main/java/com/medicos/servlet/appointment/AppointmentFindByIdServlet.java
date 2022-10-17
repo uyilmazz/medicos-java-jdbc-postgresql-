@@ -11,7 +11,7 @@ import org.w3c.dom.Document;
 import com.medicos.business.abstracts.AppointmentService;
 import com.medicos.business.concretes.AppointmentManager;
 import com.medicos.business.messages.ResultMessages;
-import com.medicos.business.xml.AppointmentXml;
+import com.medicos.business.xml.entity.AppointmentXml;
 import com.medicos.core.helper.ParseHelper;
 import com.medicos.core.helper.XmlHelper;
 import com.medicos.core.result.DataResult;

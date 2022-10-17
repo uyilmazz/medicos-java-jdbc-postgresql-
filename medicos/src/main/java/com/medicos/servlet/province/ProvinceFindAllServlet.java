@@ -13,7 +13,7 @@ import org.w3c.dom.Document;
 
 import com.medicos.business.abstracts.ProvinceService;
 import com.medicos.business.concretes.ProvinceManager;
-import com.medicos.business.xml.ProvinceXml;
+import com.medicos.business.xml.entity.ProvinceXml;
 import com.medicos.core.helper.XmlHelper;
 import com.medicos.core.result.DataResult;
 import com.medicos.entity.Province;

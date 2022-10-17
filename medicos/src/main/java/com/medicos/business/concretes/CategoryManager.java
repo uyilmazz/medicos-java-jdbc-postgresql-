@@ -19,7 +19,7 @@ public class CategoryManager implements CategoryService{
 	
 	@Override
 	public DataResult<List<Category>> getAll() throws SQLException {
-		return new ErrorDataResult<List<Category>>(categoryRepository.findAll());
+		return new SuccessDataResult<List<Category>>(categoryRepository.findAll());
 	}
 
 	@Override

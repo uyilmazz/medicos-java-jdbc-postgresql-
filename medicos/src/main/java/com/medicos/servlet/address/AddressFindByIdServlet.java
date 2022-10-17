@@ -12,7 +12,7 @@ import org.w3c.dom.Document;
 import com.medicos.business.abstracts.AddressService;
 import com.medicos.business.concretes.AddressManager;
 import com.medicos.business.messages.ResultMessages;
-import com.medicos.business.xml.AddressXml;
+import com.medicos.business.xml.entity.AddressXml;
 import com.medicos.core.helper.ParseHelper;
 import com.medicos.core.helper.XmlHelper;
 import com.medicos.core.result.DataResult;

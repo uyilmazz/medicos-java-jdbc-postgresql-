@@ -13,7 +13,7 @@ import org.w3c.dom.Document;
 
 import com.medicos.business.abstracts.OrderItemService;
 import com.medicos.business.concretes.OrderItemManager;
-import com.medicos.business.xml.OrderItemXml;
+import com.medicos.business.xml.entity.OrderItemXml;
 import com.medicos.core.helper.XmlHelper;
 import com.medicos.core.result.DataResult;
 import com.medicos.entity.OrderItem;

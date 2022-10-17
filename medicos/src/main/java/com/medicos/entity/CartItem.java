@@ -2,22 +2,19 @@ package com.medicos.entity;
 
 public class CartItem {
 	private long id;
-	private double salesPrice;
 	private int quantity;
 	private double lineAmount;
-	private long productId;
+	private Product product;
 	private long cartId;
 	
 	public CartItem() {
 	}
 
-	public CartItem(long id, double salesPrice, int quantity, double lineAmount, long productId, long cartId) {
+	public CartItem(long id, int quantity, double lineAmount , long cartId) {
 		super();
 		this.id = id;
-		this.salesPrice = salesPrice;
 		this.quantity = quantity;
 		this.lineAmount = lineAmount;
-		this.productId = productId;
 		this.cartId = cartId;
 	}
 
@@ -27,14 +24,6 @@ public class CartItem {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public double getSalesPrice() {
-		return salesPrice;
-	}
-
-	public void setSalesPrice(double salesPrice) {
-		this.salesPrice = salesPrice;
 	}
 
 	public int getQuantity() {
@@ -53,12 +42,12 @@ public class CartItem {
 		this.lineAmount = lineAmount;
 	}
 
-	public long getProductId() {
-		return productId;
+	public Product getProduct() {
+		return product;
 	}
 
-	public void setProductId(long productId) {
-		this.productId = productId;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	public long getCartId() {
