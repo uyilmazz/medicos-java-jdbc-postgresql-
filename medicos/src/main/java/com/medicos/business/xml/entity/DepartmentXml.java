@@ -1,4 +1,4 @@
-package com.medicos.business.xml;
+package com.medicos.business.xml.entity;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -11,6 +11,7 @@ import com.medicos.core.result.ErrorResult;
 import com.medicos.core.result.Result;
 import com.medicos.core.result.SuccessDataResult;
 import com.medicos.core.result.SuccessResult;
+import com.medicos.dto.CustomerLoginDto;
 import com.medicos.entity.Customer;
 import com.medicos.repository.CustomerRepository;
 
@@ -38,6 +39,15 @@ public class CustomerManager implements CustomerService{
 	}
 	
 	@Override
+	public DataResult<Customer> login(CustomerLoginDto customerLoginDto) throws SQLException {
+		Customer customer = customerRepository.login(customerLoginDto);
+		if(customer == null) {
+			return new ErrorDataResult<Customer>(ResultMessages.EmailorPasswordNotCorrect);
+		}
+		return new SuccessDataResult<Customer>(customer);
+	}
+	
+	@Override
 	public Result add(Customer entity) throws SQLException {
 		Customer customer = customerRepository.findByEmail(entity.getEmail());
 		if(customer != null) {
@@ -49,10 +59,12 @@ public class CustomerManager implements CustomerService{
 
 	@Override
 	public Result update(Customer entity) throws SQLException {
-		if(!isExist(entity.getId())) {
+		Customer customerFindById = customerRepository.findById(entity.getId());
+		if(customerFindById == null) {
 			return new ErrorResult(ResultMessages.notFoundMessage(entityName));
 		}
-		if(customerRepository.findByEmail(entity.getEmail()) != null) {
+		Customer customerFindByEmail = customerRepository.findByEmail(entity.getEmail());
+		if(customerFindByEmail != null && !(customerFindByEmail.getEmail().equals(customerFindById.getEmail()))) {
 			return new ErrorResult(ResultMessages.EmailAlreadyExist);
 		}
 		boolean result = customerRepository.update(entity);

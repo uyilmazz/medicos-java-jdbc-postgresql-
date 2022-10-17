@@ -13,13 +13,13 @@ import org.w3c.dom.Document;
 
 import com.medicos.business.abstracts.CustomerService;
 import com.medicos.business.concretes.CustomerManager;
-import com.medicos.business.xml.CustomerXml;
+import com.medicos.business.xml.entity.CustomerXml;
 import com.medicos.core.helper.XmlHelper;
 import com.medicos.core.result.DataResult;
 import com.medicos.entity.Customer;
 import com.medicos.repository.CustomerRepository;
 
-@WebServlet("/api/users")
+@WebServlet("/api/customers")
 public class CustomerFindAllServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -52,20 +52,17 @@ public class OrderItemManager implements OrderItemService{
 		if(orderItem == null) {
 			return new ErrorResult(ResultMessages.OrderItemNotFound);
 		}
-		boolean updatedResult = orderItemRepository.update(orderItem);
+		boolean updatedResult = orderItemRepository.update(entity);
 		return updatedResult ? new SuccessResult(ResultMessages.OrderItemUpdated) : new ErrorResult(ResultMessages.OrderItemCouldNotUpdated);
 	}
 
 	@Override
 	public Result delete(long id) throws SQLException {
-		if(!isExist(id)) {
+		OrderItem orderItem = orderItemRepository.findById(id);
+		if(orderItem == null) {
 			return new ErrorResult(ResultMessages.OrderItemNotFound);
 		}
-		boolean deletedResult = orderItemRepository.remove(id);
+		boolean deletedResult = orderItemRepository.remove(orderItem);
 		return deletedResult ? new SuccessResult(ResultMessages.OrderItemDeleted) : new ErrorResult(ResultMessages.OrderItemCouldNotDeleted);
-	}
-	
-	private boolean isExist(long id) throws SQLException {
-		return orderItemRepository.findById(id) != null ? true : false;
 	}
 }

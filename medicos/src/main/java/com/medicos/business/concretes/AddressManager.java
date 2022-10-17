@@ -27,7 +27,7 @@ public class AddressManager implements AddressService{
 	public DataResult<Address> getById(long id) throws SQLException {
 		Address address = addressRepository.findById(id);
 		if(address == null) {
-			return new ErrorDataResult<Address>(ResultMessages.notAddedMessage(entityName));
+			return new ErrorDataResult<Address>(ResultMessages.notFoundMessage(entityName));
 		}
 		return new SuccessDataResult<Address>(address);
 	}
@@ -40,9 +40,9 @@ public class AddressManager implements AddressService{
 
 	@Override
 	public Result update(Address entity) throws SQLException {
-		DataResult<Address> addressResult = getById(entity.getId());
-		if(!addressResult.isSuccess()) {
-			return new ErrorResult(addressResult.getMessage());
+		Address address = addressRepository.findById(entity.getId());
+		if(address == null) {
+			return new ErrorResult(ResultMessages.notFoundMessage(entityName));
 		}
 		boolean updatedResult = addressRepository.update(entity);
 		return updatedResult ? new SuccessResult(ResultMessages.updatedMessage(entityName)) : new ErrorResult(ResultMessages.notUpdatedMessage(entityName));

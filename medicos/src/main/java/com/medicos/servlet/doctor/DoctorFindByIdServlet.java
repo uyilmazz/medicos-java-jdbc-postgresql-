@@ -13,7 +13,7 @@ import org.w3c.dom.Document;
 import com.medicos.business.abstracts.DoctorService;
 import com.medicos.business.concretes.DoctorManager;
 import com.medicos.business.messages.ResultMessages;
-import com.medicos.business.xml.DoctorXml;
+import com.medicos.business.xml.entity.DoctorXml;
 import com.medicos.core.helper.ParseHelper;
 import com.medicos.core.helper.XmlHelper;
 import com.medicos.core.result.DataResult;

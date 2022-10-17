@@ -1,6 +1,7 @@
 package com.medicos.servlet.order;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +14,7 @@ import org.w3c.dom.Document;
 import com.medicos.business.abstracts.OrderService;
 import com.medicos.business.concretes.OrderManager;
 import com.medicos.business.messages.ResultMessages;
-import com.medicos.business.xml.OrderXml;
+import com.medicos.business.xml.entity.OrderXml;
 import com.medicos.core.helper.ParseHelper;
 import com.medicos.core.helper.XmlHelper;
 import com.medicos.core.result.DataResult;
@@ -26,14 +27,14 @@ public class OrderFindByCustomerIdServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			boolean isLong = ParseHelper.isInteger(request.getParameter("id"));
+			boolean isLong = ParseHelper.isInteger(request.getParameter("customerId"));
 			Document document;
 			if(isLong) {
-				long id = Long.parseLong(request.getParameter("id"));
+				long id = Long.parseLong(request.getParameter("customerId"));
 				OrderService orderService = new OrderManager(new OrderRepository());
-				DataResult<Order> result = orderService.getById(id);
+				DataResult<List<Order>> result = orderService.getByCustomerId(id);
 				if(result.isSuccess()) {
-					document = OrderXml.format(result.getData());
+					document = OrderXml.formatAll(result.getData());
 				}else {
 					document = XmlHelper.resultDocument(response, result, 400);
 				}		

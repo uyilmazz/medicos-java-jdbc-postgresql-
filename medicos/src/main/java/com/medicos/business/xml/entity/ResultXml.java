@@ -1,4 +1,4 @@
-package com.medicos.business.xml;
+package com.medicos.business.xml.entity;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

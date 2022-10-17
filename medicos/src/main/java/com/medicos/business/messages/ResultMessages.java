@@ -54,7 +54,10 @@ public class ResultMessages {
 	public static final String OrderItemDeleted = "Your product in the order has been deleted.";
 	public static final String OrderItemCouldNotDeleted = "Your product in the order could not be deleted!";
 	
-	public static final String EmailAlreadyExist = "Email address already exists!";
+	// Error Message
+	public static final String RequestParameterError = "Request parameter not correct format!";
 	
-	public static String RequestParameterError = "Request parameter not correct format!";
+	// Customer and Doctor
+	public static final String EmailAlreadyExist = "Email address already exists!";
+	public static final String EmailorPasswordNotCorrect = "Email or password not correct!"; 
 }

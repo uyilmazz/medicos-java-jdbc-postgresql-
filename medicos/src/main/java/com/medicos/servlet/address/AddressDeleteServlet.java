@@ -16,7 +16,7 @@ import com.medicos.core.helper.XmlHelper;
 import com.medicos.core.result.Result;
 import com.medicos.repository.AddressRepository;
 
-@WebServlet("/api/address/delete")
+@WebServlet("/api/addresses/delete")
 public class AddressDeleteServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

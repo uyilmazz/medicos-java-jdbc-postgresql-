@@ -23,7 +23,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.medicos.business.xml.ResultXml;
+import com.medicos.business.xml.entity.ResultXml;
 import com.medicos.core.result.Result;
 
 public class XmlHelper {
@@ -86,7 +86,6 @@ public class XmlHelper {
 	
 	public static Timestamp getSingleElementText(Element parent,String tag,Timestamp defaultValue) throws ParseException {
 		String content = getSingleElementText(parent, tag,defaultValue.toString());
-		System.out.println(defaultValue);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
 	    Date parsedDate = dateFormat.parse(content);
 	    Timestamp timeStamp = new Timestamp(parsedDate.getTime());

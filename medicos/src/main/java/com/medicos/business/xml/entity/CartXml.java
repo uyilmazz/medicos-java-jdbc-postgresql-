@@ -1,4 +1,4 @@
-package com.medicos.business.xml;
+package com.medicos.business.xml.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,13 +60,15 @@ public class CartXml {
 		
 		List<CartItem> cartItemList = new ArrayList<>();
 		Element cartItemsElement = (Element) cartElement.getElementsByTagName("cartItems").item(0);
-		NodeList cartItemsNodeList = cartItemsElement.getElementsByTagName("cartItem");
-		for (int i = 0; i < cartItemsNodeList.getLength(); i++) {
-			Element cartItemElement = (Element) cartItemsNodeList.item(i);
-			CartItem cartItem = CartItemXml.parseHelper(cartItemElement);
-			cartItemList.add(cartItem);
+		if(cartItemsElement != null) {
+			NodeList cartItemsNodeList = cartItemsElement.getElementsByTagName("cartItem");
+			for (int i = 0; i < cartItemsNodeList.getLength(); i++) {
+				Element cartItemElement = (Element) cartItemsNodeList.item(i);
+				CartItem cartItem = CartItemXml.parseHelper(cartItemElement);
+				cartItemList.add(cartItem);
+			}
+			cart.setCartItems(cartItemList);
 		}
-		cart.setCartItems(cartItemList);
 		return cart;
 	}
 	

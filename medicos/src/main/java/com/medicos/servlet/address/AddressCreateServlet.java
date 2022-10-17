@@ -11,13 +11,13 @@ import org.w3c.dom.Document;
 import com.medicos.business.abstracts.AddressService;
 import com.medicos.business.concretes.AddressManager;
 import com.medicos.business.messages.ResultMessages;
-import com.medicos.business.xml.AddressXml;
+import com.medicos.business.xml.entity.AddressXml;
 import com.medicos.core.helper.XmlHelper;
 import com.medicos.core.result.Result;
 import com.medicos.entity.Address;
 import com.medicos.repository.AddressRepository;
 
-@WebServlet("/api/address/create")
+@WebServlet("/api/addresses/create")
 public class AddressCreateServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

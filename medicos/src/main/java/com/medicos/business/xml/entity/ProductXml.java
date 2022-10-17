@@ -1,4 +1,4 @@
-package com.medicos.business.xml;
+package com.medicos.business.xml.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class ProductXml {
 		Element root = document.getDocumentElement();
 		for (int i = 0; i < productList.size(); i++) {
 			Product product = productList.get(i);
-			XmlHelper.addSingleElement(document, root, "product", false, "id", Long.toString(product.getId()));
+			XmlHelper.addSingleElement(document, root, "product", null, "id", Long.toString(product.getId()));
 			Element productElement = (Element) document.getElementsByTagName("product").item(i);
 			formatHelper(document, productElement, product);
 		}
@@ -49,7 +49,7 @@ public class ProductXml {
 		return productList;
 	}
 	
-	private static void formatHelper(Document document,Element productElement,Product product) {
+	public static void formatHelper(Document document,Element productElement,Product product) {
 		XmlHelper.addSingleElement(document, productElement, "name", product.getName(), null, null);
 		XmlHelper.addSingleElement(document, productElement, "description", product.getDescription(), null, null);
 		XmlHelper.addSingleElement(document, productElement, "howToUse", product.getHowToUse(), null, null);
@@ -57,12 +57,12 @@ public class ProductXml {
 		XmlHelper.addSingleElement(document, productElement, "imageUrl", product.getImageUrl(), null, null);
 		XmlHelper.addSingleElement(document, productElement, "category", null, "id", Long.toString(product.getCategory().getId()));
 		
-		Element categoryElement = (Element)document.getElementsByTagName("category").item(0);
+		Element categoryElement = (Element)productElement.getElementsByTagName("category").item(0);
 		XmlHelper.addSingleElement(document, categoryElement, "name", product.getCategory().getName(), null, null);
 		XmlHelper.addSingleElement(document, categoryElement, "imageUrl", product.getCategory().getImageUrl(), null, null);
 	}
 	
-	private static Product parseHelper(Element productElement) {
+	public static Product parseHelper(Element productElement) {
 		long productId = productElement.getAttribute("id") != "" ? Long.parseLong(productElement.getAttribute("id")) : 0;
 		String productName = XmlHelper.getSingleElementText(productElement, "name", "");
 		String productDescription = XmlHelper.getSingleElementText(productElement, "description", "");

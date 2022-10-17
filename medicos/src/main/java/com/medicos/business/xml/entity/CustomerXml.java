@@ -1,4 +1,4 @@
-package com.medicos.business.xml;
+package com.medicos.business.xml.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +52,7 @@ public class CustomerXml {
 	}
 	
 	public static Customer parseHelper(Element customerElement) {
-		long customerId = Long.parseLong(customerElement.getAttribute("id"));
+		long customerId = customerElement.getAttribute("id") != "" ? Long.parseLong(customerElement.getAttribute("id")) : 0 ;
 		String customerFirstName = XmlHelper.getSingleElementText(customerElement, "firstName", "");
 		String customerLastName = XmlHelper.getSingleElementText(customerElement, "lastName", "");
 		String customerEmail = XmlHelper.getSingleElementText(customerElement, "email", "");

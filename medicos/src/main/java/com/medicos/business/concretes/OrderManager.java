@@ -33,12 +33,8 @@ public class OrderManager implements OrderService{
 	}
 	
 	@Override
-	public DataResult<Order> getByCustomerId(long customerId) throws SQLException {
-		Order order = orderRepository.findByCustomerId(customerId);
-		if(order == null) {
-			return new ErrorDataResult<Order>(ResultMessages.notFoundMessage(entityName));
-		}
-		return new SuccessDataResult<Order>(order);
+	public DataResult<List<Order>> getByCustomerId(long customerId) throws SQLException {
+		return new SuccessDataResult<List<Order>>(orderRepository.findByCustomerId(customerId));
 	}
 
 	@Override

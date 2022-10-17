@@ -11,12 +11,12 @@ import com.medicos.entity.Province;
 public class AddressRepository extends BaseRepository<Address>{
 	
 	public List<Address> findAll() throws SQLException{
-		String sql = "Select * from addresses";
+		String sql = "Select a.*,p.\"name\" as province_name,p.id as province_id  from addresses a join provinces p on a.province_id = p.id ";
 		return super.findAll(sql);
 	}
 	
 	public Address findById(long id) throws SQLException {
-		String sql = "Select * from addresses where id = ?";
+		String sql = "Select a.*,p.\"name\" as province_name,p.id as province_id  from addresses a join provinces p on a.province_id = p.id  where a.id = ?";
 		return super.findById(sql, id);
 	}
 	
@@ -57,7 +57,7 @@ public class AddressRepository extends BaseRepository<Address>{
 		long addressId = resultSet.getLong("id");
 		String addressLine1 = resultSet.getString("address_line_1");
 		String addressLine2 = resultSet.getString("address_line_2");
-		long userId = resultSet.getLong("user_id");
+		long userId = resultSet.getLong("customer_id");
 		int provinceId = resultSet.getInt("province_id");
 		String provinceName = resultSet.getString("province_name");
 		Province province = new Province(provinceId,provinceName);

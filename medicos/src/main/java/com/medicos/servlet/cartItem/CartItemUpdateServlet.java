@@ -13,7 +13,7 @@ import org.w3c.dom.Document;
 import com.medicos.business.abstracts.CartItemService;
 import com.medicos.business.concretes.CartItemManager;
 import com.medicos.business.messages.ResultMessages;
-import com.medicos.business.xml.CartItemXml;
+import com.medicos.business.xml.entity.CartItemXml;
 import com.medicos.core.helper.XmlHelper;
 import com.medicos.core.result.Result;
 import com.medicos.entity.CartItem;

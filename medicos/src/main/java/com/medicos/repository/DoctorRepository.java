@@ -8,30 +8,32 @@ import java.util.List;
 import com.medicos.entity.Department;
 import com.medicos.entity.Doctor;
 
-public class DoctorRepository extends BaseRepository<Doctor>{
-	private final String SELECT_STRING = "select d.*,dep.\\\"name\\\" as department_name,dep.image_url as department_image_url from doctors d join departments dep on d.department_id = dep.id";
-	
-	public List<Doctor> findAll() throws SQLException{
+public class DoctorRepository extends BaseRepository<Doctor> {
+	private final String SELECT_STRING = "select d.*,dep.\"name\" as department_name,dep.image_url as department_image_url from doctors d join departments dep on d.department_id = dep.id";
+
+	public List<Doctor> findAll() throws SQLException {
 		return super.findAll(SELECT_STRING);
 	}
-	
+
 	public Doctor findById(long id) throws SQLException {
-		String sql = String.format("%s %s",SELECT_STRING,"where id = ?");
+		String sql = String.format("%s %s", SELECT_STRING, "where d.id = ?");
 		return super.findById(sql, id);
 	}
-	
+
 	public Doctor findByEmail(String email) throws SQLException {
 		Doctor doctor = null;
-		String sql = String.format("%s %s",SELECT_STRING,"where email = ?");
+		String sql = String.format("%s %s", SELECT_STRING, "where d.email = ?");
 		connect();
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, email);
 		ResultSet resultSet = statement.executeQuery();
-		doctor = parse(resultSet);
+		if(resultSet.next()) {
+			doctor = parse(resultSet);
+		}
 		disconnect();
 		return doctor;
 	}
-	
+
 	public boolean add(Doctor doctor) throws SQLException {
 		connect();
 		String sql = "Insert into doctors(first_name,last_name,email,password,about,image_url,experience_month,patience_count,department_id) values(?,?,?,?,?,?,?,?,?)";
@@ -49,7 +51,7 @@ public class DoctorRepository extends BaseRepository<Doctor>{
 		disconnect();
 		return affected > 0 ? true : false;
 	}
-	
+
 	public boolean update(Doctor doctor) throws SQLException {
 		connect();
 		String sql = "Update doctors set first_name = ?,last_name = ?, email = ?, password = ?, about = ?, image_url = ?, experience_month = ?, patience_count = ?,department_id = ? where id = ?";
@@ -68,7 +70,7 @@ public class DoctorRepository extends BaseRepository<Doctor>{
 		disconnect();
 		return affected > 0 ? true : false;
 	}
-	
+
 	public boolean remove(long id) throws SQLException {
 		String sql = "Delete from doctors where id = ?";
 		return super.remove(sql, id);
@@ -76,25 +78,23 @@ public class DoctorRepository extends BaseRepository<Doctor>{
 
 	@Override
 	protected Doctor parse(ResultSet resultSet) throws SQLException {
-		Doctor doctor = null;
-		if(resultSet.next()) {
-			long id = resultSet.getLong("id");
-			String firstName = resultSet.getString("first_name");
-			String lastName = resultSet.getString("last_name");
-			String email = resultSet.getString("email");
-			String password = resultSet.getString("password");
-			String about = resultSet.getString("about");
-			String imageUrl = resultSet.getString("image_url");
-			int experienceMonth = resultSet.getInt("experience_month");
-			int patienceCount = resultSet.getInt("patience_count");
-			doctor = new Doctor(id,firstName,lastName,email,password,about,imageUrl,experienceMonth,patienceCount);
-			
-			int departmentId = resultSet.getInt("departmentId");
-			String departmentName = resultSet.getString("department_name");
-			String departmentImageUrl = resultSet.getString("department_image_url");
-			Department department = new Department(departmentId,departmentName,departmentImageUrl);
-			doctor.setDepartment(department);
-		}
+		long id = resultSet.getLong("id");
+		String firstName = resultSet.getString("first_name");
+		String lastName = resultSet.getString("last_name");
+		String email = resultSet.getString("email");
+		String password = resultSet.getString("password");
+		String about = resultSet.getString("about");
+		String imageUrl = resultSet.getString("image_url");
+		int experienceMonth = resultSet.getInt("experience_month");
+		int patienceCount = resultSet.getInt("patience_count");
+		Doctor doctor = new Doctor(id, firstName, lastName, email, password, about, imageUrl, experienceMonth,
+				patienceCount);
+
+		int departmentId = resultSet.getInt("department_id");
+		String departmentName = resultSet.getString("department_name");
+		String departmentImageUrl = resultSet.getString("department_image_url");
+		Department department = new Department(departmentId, departmentName, departmentImageUrl);
+		doctor.setDepartment(department);
 		return doctor;
 	}
 }

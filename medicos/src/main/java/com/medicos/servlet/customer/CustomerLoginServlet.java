@@ -1,4 +1,4 @@
-package com.medicos.servlet.appointment;
+package com.medicos.servlet.customer;
 
 import java.io.IOException;
 
@@ -7,29 +7,34 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.w3c.dom.Document;
-import com.medicos.business.abstracts.AppointmentService;
-import com.medicos.business.concretes.AppointmentManager;
-import com.medicos.business.messages.ResultMessages;
-import com.medicos.business.xml.entity.AppointmentXml;
-import com.medicos.core.helper.XmlHelper;
-import com.medicos.core.result.Result;
-import com.medicos.entity.Appointment;
-import com.medicos.repository.AppointmentRepository;
 
-@WebServlet("/api/appointments/update")
-public class AppointmentUpdateServlet extends HttpServlet{
+import org.w3c.dom.Document;
+
+import com.medicos.business.abstracts.CustomerService;
+import com.medicos.business.concretes.CustomerManager;
+import com.medicos.business.messages.ResultMessages;
+import com.medicos.business.xml.dto.CustomerLoginDtoXml;
+import com.medicos.business.xml.entity.CustomerXml;
+import com.medicos.core.helper.XmlHelper;
+import com.medicos.core.result.DataResult;
+import com.medicos.core.result.Result;
+import com.medicos.dto.CustomerLoginDto;
+import com.medicos.entity.Customer;
+import com.medicos.repository.CustomerRepository;
+
+@WebServlet("/api/customers/login")
+public class CustomerLoginServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			Document document = XmlHelper.parse(request.getInputStream());
 			Document responseDocument;
 			if(document != null) {
-				Appointment appointment = AppointmentXml.parse(document);
-				AppointmentService appointmentService = new AppointmentManager(new AppointmentRepository());
-				Result result = appointmentService.update(appointment);
+				CustomerLoginDto customerLoginDto = CustomerLoginDtoXml.parse(document);
+				CustomerService customerService = new CustomerManager(new CustomerRepository());
+				DataResult<Customer> result = customerService.login(customerLoginDto);
 				if(result.isSuccess()) {
-					responseDocument = XmlHelper.resultDocument(response, result, 200);
+					responseDocument = CustomerXml.format(result.getData());
 				}else {
 					responseDocument = XmlHelper.resultDocument(response, result, 400);
 				}		
